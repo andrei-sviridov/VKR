@@ -34,7 +34,6 @@ namespace VKR
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OtchotDataGridView = new System.Windows.Forms.DataGridView();
-            this.OtchotButton = new System.Windows.Forms.Button();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,6 +41,7 @@ namespace VKR
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OtchotButton = new System.Windows.Forms.Button();
             this.PDFButton = new System.Windows.Forms.Button();
             this.ExcelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SotrudnikiDataGridView)).BeginInit();
@@ -89,6 +89,7 @@ namespace VKR
             // 
             // OtchotDataGridView
             // 
+            this.OtchotDataGridView.AllowUserToAddRows = false;
             this.OtchotDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.OtchotDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column4,
@@ -105,18 +106,6 @@ namespace VKR
             this.OtchotDataGridView.RowTemplate.Height = 24;
             this.OtchotDataGridView.Size = new System.Drawing.Size(957, 451);
             this.OtchotDataGridView.TabIndex = 1;
-            // 
-            // OtchotButton
-            // 
-            this.OtchotButton.BackColor = System.Drawing.SystemColors.Info;
-            this.OtchotButton.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold);
-            this.OtchotButton.Location = new System.Drawing.Point(13, 130);
-            this.OtchotButton.Name = "OtchotButton";
-            this.OtchotButton.Size = new System.Drawing.Size(300, 46);
-            this.OtchotButton.TabIndex = 2;
-            this.OtchotButton.Text = "Сгенерировать";
-            this.OtchotButton.UseVisualStyleBackColor = false;
-            this.OtchotButton.Click += new System.EventHandler(this.OtchotButton_Click);
             // 
             // Column4
             // 
@@ -166,6 +155,18 @@ namespace VKR
             this.Column10.MinimumWidth = 6;
             this.Column10.Name = "Column10";
             this.Column10.Width = 125;
+            // 
+            // OtchotButton
+            // 
+            this.OtchotButton.BackColor = System.Drawing.SystemColors.Info;
+            this.OtchotButton.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold);
+            this.OtchotButton.Location = new System.Drawing.Point(13, 130);
+            this.OtchotButton.Name = "OtchotButton";
+            this.OtchotButton.Size = new System.Drawing.Size(300, 46);
+            this.OtchotButton.TabIndex = 2;
+            this.OtchotButton.Text = "Сгенерировать";
+            this.OtchotButton.UseVisualStyleBackColor = false;
+            this.OtchotButton.Click += new System.EventHandler(this.OtchotButton_Click);
             // 
             // PDFButton
             // 
