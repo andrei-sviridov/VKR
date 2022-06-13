@@ -88,7 +88,7 @@ namespace VKR
                 if (e.ColumnIndex == 5)
                 {
                     EtaZadacha = context.zadacha.FirstOrDefault(x=> x.id_zadacha == rowclick);
-                    var myForm = new Form6(true, EtaZadacha);
+                    var myForm = new Form6(1, EtaZadacha);
                     myForm.Show();
                 } 
             }

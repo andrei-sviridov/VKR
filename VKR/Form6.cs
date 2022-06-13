@@ -15,7 +15,7 @@ namespace VKR
         sotrudnik[] ispolniteli;
 
         zadacha Zadacha;
-        public Form6(bool flag, zadacha zadacha)
+        public Form6(int flag, zadacha zadacha)
         {
             InitializeComponent();
 
@@ -25,7 +25,7 @@ namespace VKR
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker2.ShowUpDown = true;
 
-            if (flag)
+            if (flag == 1)
             {
                 textBox2.ReadOnly = true;
                 textBox3.ReadOnly = true;
@@ -33,10 +33,14 @@ namespace VKR
                 dateTimePicker1.Enabled = false;
                 dateTimePicker2.Enabled = false;
             }
-            else
+            else if( flag == 0)
             {
                 comboBox1.Enabled = false;
                 vernytZadachy.Visible = false;
+            }
+            else if (flag == 2)
+            {
+
             }
 
             refresh();

@@ -150,7 +150,7 @@
             this.InsertButton.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.InsertButton.Location = new System.Drawing.Point(688, 13);
             this.InsertButton.Name = "InsertButton";
-            this.InsertButton.Size = new System.Drawing.Size(282, 80);
+            this.InsertButton.Size = new System.Drawing.Size(295, 80);
             this.InsertButton.TabIndex = 10;
             this.InsertButton.Text = "Добавить";
             this.InsertButton.UseVisualStyleBackColor = false;
@@ -162,7 +162,7 @@
             this.UpdateButton.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UpdateButton.Location = new System.Drawing.Point(688, 116);
             this.UpdateButton.Name = "UpdateButton";
-            this.UpdateButton.Size = new System.Drawing.Size(282, 80);
+            this.UpdateButton.Size = new System.Drawing.Size(295, 80);
             this.UpdateButton.TabIndex = 11;
             this.UpdateButton.Text = "Изменить";
             this.UpdateButton.UseVisualStyleBackColor = false;
@@ -174,7 +174,7 @@
             this.DeleteButton.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DeleteButton.Location = new System.Drawing.Point(688, 219);
             this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(282, 80);
+            this.DeleteButton.Size = new System.Drawing.Size(295, 80);
             this.DeleteButton.TabIndex = 12;
             this.DeleteButton.Text = "Удалить";
             this.DeleteButton.UseVisualStyleBackColor = false;
@@ -186,7 +186,7 @@
             this.RefreshButton.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RefreshButton.Location = new System.Drawing.Point(830, 361);
             this.RefreshButton.Name = "RefreshButton";
-            this.RefreshButton.Size = new System.Drawing.Size(140, 80);
+            this.RefreshButton.Size = new System.Drawing.Size(153, 80);
             this.RefreshButton.TabIndex = 13;
             this.RefreshButton.Text = "Обновить";
             this.RefreshButton.UseVisualStyleBackColor = false;
@@ -228,7 +228,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 516);
+            this.ClientSize = new System.Drawing.Size(995, 516);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.BackButton);
