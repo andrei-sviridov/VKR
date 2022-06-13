@@ -41,6 +41,7 @@ namespace VKR
         {
             var myForm = new Form9(KompetentComboBox.SelectedItem as kompetenzia);
             myForm.Show();
+
         }
 
         void refresh()
@@ -62,22 +63,39 @@ namespace VKR
         {
             using (VkrContext context = new VkrContext())
             {
-                var kompetenzia = new kompetenzia();
-
-                kompetenzia.nazvaine_kompetenzia = NazvanieKompetentTextBox.Text;
-                kompetenzia.opisanie_kompetenzia = OpisanieTextBox.Text;
-                kompetenzia.id_grupa = context.grupa.FirstOrDefault(x => x.nazvanie_grupa == GroupKompetentComboBox.Text).id_grupa;
-
-                if ((context.kompetenzia.FirstOrDefault(x => x.nazvaine_kompetenzia == kompetenzia.nazvaine_kompetenzia)) == null)
+                if (GroupKompetentComboBox.SelectedItem != null)
                 {
-                    context.kompetenzia.Add(kompetenzia);
-                    context.SaveChanges();
+                    var kompetenzia = new kompetenzia();
+
+                    kompetenzia.nazvaine_kompetenzia = NazvanieKompetentTextBox.Text;
+                    kompetenzia.opisanie_kompetenzia = OpisanieTextBox.Text;
+                    kompetenzia.id_grupa = context.grupa.FirstOrDefault(x => x.nazvanie_grupa == GroupKompetentComboBox.Text).id_grupa;
+
+                    if ((context.kompetenzia.FirstOrDefault(x => x.nazvaine_kompetenzia == kompetenzia.nazvaine_kompetenzia)) == null)
+                    {
+                        context.kompetenzia.Add(kompetenzia);
+                        context.SaveChanges();
+                        MessageBox.Show("Компетенция добавлена");
+                        refresh();
+                        foreach (var item in KompetentComboBox.Items)
+                        {
+                            if (item.ToString() == kompetenzia.nazvaine_kompetenzia)
+                            {
+                                KompetentComboBox.SelectedItem = item;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Компетенция с таким названием уже существует");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Компетенция с таким названием уже существует");
+                    MessageBox.Show("Укажите группу компетенции");
                 }
-            }
+
+            }   
         }
 
         private void KompetentComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -98,15 +116,34 @@ namespace VKR
         {
             using (VkrContext context = new VkrContext())
             {
-                kompetenzia EtaKompetenzia = KompetentComboBox.SelectedItem as kompetenzia;
+                if (GroupKompetentComboBox.SelectedItem != null)
+                {
+                    kompetenzia EtaKompetenzia = KompetentComboBox.SelectedItem as kompetenzia;
 
-                var kompetenzia = context.kompetenzia.FirstOrDefault(x => x.nazvaine_kompetenzia == EtaKompetenzia.nazvaine_kompetenzia);
+                    var kompetenzia = context.kompetenzia.FirstOrDefault(x => x.nazvaine_kompetenzia == EtaKompetenzia.nazvaine_kompetenzia);
 
-                kompetenzia.nazvaine_kompetenzia = NazvanieKompetentTextBox.Text;
-                kompetenzia.opisanie_kompetenzia = OpisanieTextBox.Text;
-                kompetenzia.id_grupa = context.grupa.FirstOrDefault(x => x.nazvanie_grupa == GroupKompetentComboBox.Text).id_grupa;
+                    kompetenzia.nazvaine_kompetenzia = NazvanieKompetentTextBox.Text;
+                    kompetenzia.opisanie_kompetenzia = OpisanieTextBox.Text;
+                    kompetenzia.id_grupa = context.grupa.FirstOrDefault(x => x.nazvanie_grupa == GroupKompetentComboBox.Text).id_grupa;
 
-                context.SaveChanges();
+                    context.SaveChanges();
+                    MessageBox.Show("Компетенция изменена");
+
+                    refresh();
+                    foreach (var item in KompetentComboBox.Items)
+                    {
+                        if (item.ToString() == kompetenzia.nazvaine_kompetenzia)
+                        {
+                            KompetentComboBox.SelectedItem = item;
+                        }
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Укажите группу компетенции");
+                }
+
             }
         }
 

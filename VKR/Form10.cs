@@ -50,29 +50,51 @@ namespace VKR
         {
             using (VkrContext context = new VkrContext())
             {
-                var sotrudnik = new sotrudnik();
-
-                sotrudnik.fio_sotrudnik = textBox1.Text;
-                sotrudnik.doljnost_sotrudnik = textBox2.Text;
-                sotrudnik.login_sotrudnik = textBox3.Text;
-                sotrudnik.parol_sotrudnik = textBox4.Text;
-                sotrudnik.rukovoditel_sotrudnik = (comboBox2.SelectedItem as sotrudnik).id_sotrudnik;
-
-                if ((context.sotrudnik.FirstOrDefault(x => x.login_sotrudnik == sotrudnik.login_sotrudnik)) == null)
+                if (textBox1.Text != "" && textBox3.Text != "" && textBox4.Text != "")
                 {
-                    context.sotrudnik.Add(sotrudnik);
-                    context.SaveChanges();
+                    var sotrudnik = new sotrudnik();
+
+                    sotrudnik.fio_sotrudnik = textBox1.Text;
+                    sotrudnik.doljnost_sotrudnik = textBox2.Text;
+                    sotrudnik.login_sotrudnik = textBox3.Text;
+                    sotrudnik.parol_sotrudnik = textBox4.Text;
+                    if (comboBox2.SelectedItem != null)
+                    {
+                        sotrudnik.rukovoditel_sotrudnik = (comboBox2.SelectedItem as sotrudnik).id_sotrudnik;
+                    }
+                    
+
+                    if ((context.sotrudnik.FirstOrDefault(x => x.login_sotrudnik == sotrudnik.login_sotrudnik)) == null)
+                    {
+                        context.sotrudnik.Add(sotrudnik);
+                        context.SaveChanges();
+                        MessageBox.Show("Сотрудник добавлен");
+                        refresh();
+                        foreach (var item in comboBox1.Items)
+                        {
+                            if (item.ToString() == sotrudnik.fio_sotrudnik)
+                            {
+                                comboBox1.SelectedItem = item;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь с такими данными уже существует");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Пользователь с такими данными уже существует");
+                    MessageBox.Show("Заполните поля ФИО, Логин и Пароль");
                 }
+
             }
         }
 
         void refresh()
         {
             comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
 
             using (VkrContext context = new VkrContext())
             {
@@ -84,6 +106,12 @@ namespace VKR
             comboBox1.Items.AddRange(ispolniteli);
 
             comboBox2.Items.AddRange(rukovoditeli);
+
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -115,17 +143,38 @@ namespace VKR
         {
             using (VkrContext context = new VkrContext())
             {
-                sotrudnik EtotSotrudnik = comboBox1.SelectedItem as sotrudnik;
+                if (textBox1.Text != "" && textBox3.Text != "" && textBox4.Text != "")
+                {
+                    sotrudnik EtotSotrudnik = comboBox1.SelectedItem as sotrudnik;
 
-                var sotrudnik = context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == EtotSotrudnik.id_sotrudnik);
+                    var sotrudnik = context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == EtotSotrudnik.id_sotrudnik);
 
-                sotrudnik.fio_sotrudnik = textBox1.Text;
-                sotrudnik.doljnost_sotrudnik = textBox2.Text;
-                sotrudnik.login_sotrudnik = textBox3.Text;
-                sotrudnik.parol_sotrudnik = textBox4.Text;
-                sotrudnik.rukovoditel_sotrudnik = (comboBox2.SelectedItem as sotrudnik).id_sotrudnik;
+                    sotrudnik.fio_sotrudnik = textBox1.Text;
+                    sotrudnik.doljnost_sotrudnik = textBox2.Text;
+                    sotrudnik.login_sotrudnik = textBox3.Text;
+                    sotrudnik.parol_sotrudnik = textBox4.Text;
+                    if (comboBox2.SelectedItem != null)
+                    {
+                        sotrudnik.rukovoditel_sotrudnik = (comboBox2.SelectedItem as sotrudnik).id_sotrudnik;
+                    }
+                    
 
-                context.SaveChanges();
+                    context.SaveChanges();
+                    MessageBox.Show("Данные сотрудника изменены");
+                    refresh();
+                    foreach (var item in comboBox1.Items)
+                    {
+                        if (item.ToString() == sotrudnik.fio_sotrudnik)
+                        {
+                            comboBox1.SelectedItem = item;
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Заполните поля ФИО, Логин и Пароль");
+                }
+
             }
         }
 

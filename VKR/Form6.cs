@@ -75,7 +75,7 @@ namespace VKR
 
                 context.SaveChanges();
             }
-                this.Close();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
