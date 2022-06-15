@@ -74,7 +74,12 @@ namespace VKR
 
                 foreach (var zadacha in zadachas)
                 {
-                    dataGridView1.Rows.Add(zadacha.id_zadacha, zadacha.opisanie_zadacha, zadacha.srok_ispolnenia_zadacha, zadacha.status_zadacha, context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == zadacha.id_sotrudnik).fio_sotrudnik, context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == zadacha.id_ispolnitel_zadacha).fio_sotrudnik);
+                    if (context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == zadacha.id_ispolnitel_zadacha) != null)
+                    {
+                        dataGridView1.Rows.Add(zadacha.id_zadacha, zadacha.opisanie_zadacha, zadacha.srok_ispolnenia_zadacha, zadacha.status_zadacha, context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == zadacha.id_sotrudnik).fio_sotrudnik, context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == zadacha.id_ispolnitel_zadacha).fio_sotrudnik);
+                    }
+                    
+                                      
                 }
 
 

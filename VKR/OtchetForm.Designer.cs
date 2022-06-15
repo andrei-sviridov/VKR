@@ -44,12 +44,14 @@ namespace VKR
             this.OtchotButton = new System.Windows.Forms.Button();
             this.PDFButton = new System.Windows.Forms.Button();
             this.ExcelButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SotrudnikiDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OtchotDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // SotrudnikiDataGridView
             // 
+            this.SotrudnikiDataGridView.AllowUserToAddRows = false;
             this.SotrudnikiDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SotrudnikiDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -192,11 +194,24 @@ namespace VKR
             this.ExcelButton.UseVisualStyleBackColor = false;
             this.ExcelButton.Click += new System.EventHandler(this.ExcelButton_Click);
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.Info;
+            this.button1.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold);
+            this.button1.Location = new System.Drawing.Point(319, 130);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(132, 46);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Назад";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // OtchetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(982, 645);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.ExcelButton);
             this.Controls.Add(this.PDFButton);
             this.Controls.Add(this.OtchotButton);
@@ -227,5 +242,6 @@ namespace VKR
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.Button PDFButton;
         private System.Windows.Forms.Button ExcelButton;
+        private System.Windows.Forms.Button button1;
     }
 }

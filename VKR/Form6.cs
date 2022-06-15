@@ -13,12 +13,12 @@ namespace VKR
     public partial class Form6 : Form
     {
         sotrudnik[] ispolniteli;
-
+        int flag;
         zadacha Zadacha;
         public Form6(int flag, zadacha zadacha)
         {
             InitializeComponent();
-
+            this.flag = flag;
             Zadacha = zadacha;
 
             this.dateTimePicker2.CustomFormat = "HH:mm:ss";
@@ -44,6 +44,7 @@ namespace VKR
             }
 
             refresh();
+            //(this.Owner as Form5).refresh();//////////////////////
 
         }
 
@@ -74,6 +75,26 @@ namespace VKR
                 zadacha.id_ispolnitel_zadacha = (comboBox2.SelectedItem as sotrudnik).id_sotrudnik;
 
                 context.SaveChanges();
+
+                if (flag == 2)
+                {
+                    var mes = new Message();
+                    mes.id_zadacha = zadacha.id_zadacha;
+                    mes.id_sotrudnik = zadacha.id_sotrudnik;
+                    mes.tekst_message = "Задача изменена руководителем";
+                    context.Message.Add(mes);
+                    context.SaveChanges();
+                }
+
+                if(comboBox1.Text == "Выполнена")
+                {
+                    var mes = new Message();
+                    mes.id_zadacha = zadacha.id_zadacha;
+                    mes.id_sotrudnik = zadacha.id_sotrudnik;
+                    mes.tekst_message = "Задача выполнена";
+                    context.Message.Add(mes);
+                    context.SaveChanges();
+                }
             }
             this.Close();
         }
@@ -113,6 +134,15 @@ namespace VKR
                 zadacha.id_ispolnitel_zadacha = null;
 
                 context.SaveChanges();
+  
+
+                var mes = new Message();
+                mes.id_zadacha = zadacha.id_zadacha;
+                mes.id_sotrudnik = zadacha.id_sotrudnik;
+                mes.tekst_message = "Задача возвращена";
+                context.Message.Add(mes);
+                context.SaveChanges();
+
                 this.Close();
             }
         }

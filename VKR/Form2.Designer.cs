@@ -48,7 +48,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(834, 9);
+            this.label1.Location = new System.Drawing.Point(777, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 35);
             this.label1.TabIndex = 0;
@@ -149,10 +149,10 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(717, 425);
+            this.textBox2.Location = new System.Drawing.Point(651, 334);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(253, 208);
+            this.textBox2.Size = new System.Drawing.Size(319, 299);
             this.textBox2.TabIndex = 9;
             // 
             // button7
@@ -171,7 +171,7 @@
             this.button8.BackColor = System.Drawing.SystemColors.Info;
             this.button8.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button8.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button8.Location = new System.Drawing.Point(744, 565);
+            this.button8.Location = new System.Drawing.Point(710, 565);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(207, 57);
             this.button8.TabIndex = 11;
@@ -238,7 +238,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label2;
@@ -248,5 +247,6 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button ViewZadachiPodchinButton;
         private System.Windows.Forms.Button button10;
+        public System.Windows.Forms.Button button4;
     }
 }

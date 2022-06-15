@@ -14,11 +14,14 @@ namespace VKR
     public partial class Form2 : Form
     {
         List<zadacha> Zadachi;
+        List<Message> messages;
 
         sotrudnik sotrudnikSozdatel;
         public Form2(sotrudnik sotrudnik)
         {
             InitializeComponent();
+
+            button7.Visible = false;
 
             Timer timer = new Timer();
             timer.Interval = 1000;
@@ -54,6 +57,8 @@ namespace VKR
                 button4.Visible = false;
                 button5.Visible = false;
                 button6.Visible = false;
+                //ViewZadachiPodchinButton.Location.X = 12 ;
+                //ViewZadachiPodchinButton.Location.Y = 191;
             }
          
 
@@ -80,8 +85,23 @@ namespace VKR
                 {
                     countZadach += 1;
                 }
+
+
             }
-                textBox2.Text = "Текущих задач: " + countZadach;
+                textBox2.Text = "Текущих задач: " + countZadach + ";";
+            using (VkrContext context = new VkrContext())
+            {
+                messages = context.Message.ToList();
+
+                foreach (var item in messages)
+                {
+                    if (item.id_sotrudnik == sotrudnikSozdatel.id_sotrudnik)
+                    {
+                        textBox2.Text += Environment.NewLine + $"{item.id_zadacha} {item.tekst_message};";
+                    }
+                }
+            }
+
         }
 
         private void label4_Click(object sender, EventArgs e)

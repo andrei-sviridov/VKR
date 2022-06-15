@@ -19,6 +19,7 @@ namespace VKR
         public virtual DbSet<zadacha_kompetenzia> zadacha_kompetenzia { get; set; }
         public virtual DbSet<jurnal> jurnal { get; set; }
         public virtual DbSet<grupa> grupa { get; set; }
+        public virtual DbSet<Message> Message { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

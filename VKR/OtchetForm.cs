@@ -176,7 +176,7 @@ namespace VKR
 
         private void ReadToWorkSheet(Worksheet worksheet)
         {
-            for (int i = 0; i < OtchotDataGridView.Rows.Count - 1; i++)
+            for (int i = 0; i < OtchotDataGridView.Rows.Count; i++)
             {
                 for (int j = 0; j < OtchotDataGridView.Columns.Count; j++)
                 {
@@ -190,6 +190,12 @@ namespace VKR
                     }
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Parent_Form.Show();
+            this.Close();
         }
     }
 }

@@ -52,7 +52,7 @@ namespace VKR
                 if (Convert.ToBoolean(dataGridView2.Rows[i].Cells[2].EditedFormattedValue) == true)
                 {
                     string fio = dataGridView2.Rows[i].Cells[1].Value.ToString();
-                    int cunt = Convert.ToInt32( dataGridView2.Rows[i].Cells[0].Value);
+                    
                     using (VkrContext context = new VkrContext())
                     {
                         ////Ищет по фио и количестве совподений компетенций, если одинаковое фио и количество, то будет хуёво
@@ -61,7 +61,7 @@ namespace VKR
 
                         foreach (var item in q)
                         {
-                            if (fio == item.Element.fio_sotrudnik && cunt == item.Counter)
+                            if (fio == item.Element.fio_sotrudnik)
                             {
                                 NaznachaemiSotrudnik = context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == item.Element.id_sotrudnik);
                             }
@@ -136,8 +136,69 @@ namespace VKR
             }
         }
 
+        //private void AceptButton_Click(object sender, EventArgs e)
+        //{
+        //    //DataGredClearRows();
+        //    using (VkrContext context = new VkrContext())
+        //    {
+        //        for (int i = 0; i < dataGridView1.Rows.Count; i++)
+        //        {
+        //            if (Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].EditedFormattedValue) == true)
+        //            {
+        //                string EtaKompetenzia = dataGridView1.Rows[i].Cells[1].Value.ToString();
+        //                NeedKompetenzias.Add(context.kompetenzia.FirstOrDefault(x => x.nazvaine_kompetenzia == EtaKompetenzia));
+        //            }
+        //        }
+
+        //        foreach (var item in NeedKompetenzias)
+        //        {
+        //           NeedSotrudnik_Kompetenzia.AddRange(context.sotrudnik_kompetenzia.Where(x => x.id_kompetenzia == item.id_kompetenzia));
+        //        }
+
+        //        foreach (var item in NeedSotrudnik_Kompetenzia)
+        //        {
+        //            NeedSotrudniks.Add(context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == item.id_sotrudnik));
+        //        }
+
+                    
+        //            var q = NeedSotrudniks.GroupBy(x => x).Select(y => new { Element = y.Key, Counter = y.Count() }).ToList();
+
+        //        foreach (var item in q)
+        //        {
+        //            dataGridView2.Rows.Add(item.Counter,item.Element.fio_sotrudnik);
+        //        }
+                    
+                
+        //    }
+        //}
+
+        void DataGredClearRows()///////////////////////////////////////// Проверить
+        {
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+            {
+                //if (dataGridView2.Rows[i] != null)
+                //{
+                    dataGridView2.Rows.Remove(dataGridView2.Rows[i]);
+               
+                //}
+                
+            }
+        }
+
         private void AceptButton_Click(object sender, EventArgs e)
         {
+            NeedSotrudnik_Kompetenzia.Clear();//удаление
+            NeedSotrudniks.Clear();//удаление
+
+
+
+            var K = new Dictionary<kompetenzia, int>();
+            K.Clear();//удаление
+
+            DataGredClearRows();//удаление
+
+
+
             using (VkrContext context = new VkrContext())
             {
                 for (int i = 0; i < dataGridView1.Rows.Count; i++)
@@ -145,29 +206,47 @@ namespace VKR
                     if (Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].EditedFormattedValue) == true)
                     {
                         string EtaKompetenzia = dataGridView1.Rows[i].Cells[1].Value.ToString();
-                        NeedKompetenzias.Add(context.kompetenzia.FirstOrDefault(x => x.nazvaine_kompetenzia == EtaKompetenzia));
+                        int EtaOzenka = Convert.ToInt32(dataGridView1.Rows[i].Cells[2].Value);
+                        //NeedKompetenzias.Add(context.kompetenzia.FirstOrDefault(x => x.nazvaine_kompetenzia == EtaKompetenzia));
+
+                        K.Add(context.kompetenzia.FirstOrDefault(x => x.nazvaine_kompetenzia == EtaKompetenzia), EtaOzenka);
+                        
+
                     }
                 }
 
-                foreach (var item in NeedKompetenzias)
+                //Внести весь код ниже в цикл фор в котором будет уменьшаться EtaOzenka и показывать менее подходящих сотрудников
+                //(скорее всего найти максимальное значение EtaOzenka в дневнике К, и столько раз проходить цикл или сделать цикл всегда 5 так как макс оценка компетенции равна 5)
+
+                foreach (var item in K)
                 {
-                   NeedSotrudnik_Kompetenzia.AddRange(context.sotrudnik_kompetenzia.Where(x => x.id_kompetenzia == item.id_kompetenzia));
+                    NeedSotrudnik_Kompetenzia.AddRange((context.sotrudnik_kompetenzia.Where(x => x.id_kompetenzia == item.Key.id_kompetenzia && x.ozenka_sotrudnik_kompetenzia >= item.Value)).ToList());
                 }
+                var NSK = NeedSotrudnik_Kompetenzia.GroupBy(x => x.id_sotrudnik).Select(y => new { Element = y.Key, Counter = y.Count() }).ToList();
 
-                foreach (var item in NeedSotrudnik_Kompetenzia)
+                foreach (var item in NSK)
                 {
-                    NeedSotrudniks.Add(context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == item.id_sotrudnik));
-                }
-
-
-                    var q = NeedSotrudniks.GroupBy(x => x).Select(y => new { Element = y.Key, Counter = y.Count() }).ToList();
-
-                foreach (var item in q)
-                {
-                    dataGridView2.Rows.Add(item.Counter,item.Element.fio_sotrudnik);
-                }
+                    //NeedSotrudniks.Add(context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == item.id_sotrudnik));
+                    if (item.Counter == K.Count)
+                    {
+                        NeedSotrudniks.Add(context.sotrudnik.FirstOrDefault(x => x.id_sotrudnik == item.Element));
+                    }
                     
-                
+                }
+                NSK.Clear();//удаление
+
+
+                //var q = NeedSotrudniks.GroupBy(x => x).Select(y => new { Element = y.Key, Counter = y.Count() }).ToList();
+
+                //foreach (var item in q)
+                //{
+                //    dataGridView2.Rows.Add(item.Counter, item.Element.fio_sotrudnik);
+                //}
+
+                foreach (var item in NeedSotrudniks)
+                {
+                    dataGridView2.Rows.Add(K.Count, item.fio_sotrudnik);
+                }
             }
         }
     }

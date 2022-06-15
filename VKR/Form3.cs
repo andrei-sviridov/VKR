@@ -69,7 +69,15 @@ namespace VKR
 
                 context.zadacha.Add(zadacha);
                 context.SaveChanges();
+
+                var mes = new Message();
+                mes.id_sotrudnik = (comboBox1.SelectedItem as sotrudnik).id_sotrudnik;
+                mes.tekst_message = "Назначена новая задача";
+                context.Message.Add(mes);
+                context.SaveChanges();
             }
+
+            
 
 
            

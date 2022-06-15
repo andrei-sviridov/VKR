@@ -143,6 +143,7 @@
     <Compile Include="grupa.cs" />
     <Compile Include="jurnal.cs" />
     <Compile Include="kompetenzia.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Migrations\202201201438043_SecondMigration.cs" />
     <Compile Include="Migrations\202201201438043_SecondMigration.designer.cs">
       <DependentUpon>202201201438043_SecondMigration.cs</DependentUpon>

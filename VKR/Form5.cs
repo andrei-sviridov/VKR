@@ -92,12 +92,13 @@ namespace VKR
                 {
                     EtaZadacha = context.zadacha.FirstOrDefault(x => x.id_zadacha == rowclick);
                     var myForm = new Form6(0, EtaZadacha);
+                    //myForm.Owner = this;///////////////////////////////////////
                     myForm.Show();
                 }
             }
         }
 
-        private void refresh()
+        public void refresh()
         {
             dataGridView1.Rows.Clear();
 
@@ -113,6 +114,10 @@ namespace VKR
                     if (ZadachiIspolnitel != null)
                     {
                         dataGridView1.Rows.Add(zadach.id_zadacha, zadach.opisanie_zadacha, ZadachiIspolnitel.fio_sotrudnik, zadach.srok_ispolnenia_zadacha, zadach.status_zadacha);
+                    }
+                    else
+                    {
+                        dataGridView1.Rows.Add(zadach.id_zadacha, zadach.opisanie_zadacha, "--", zadach.srok_ispolnenia_zadacha, zadach.status_zadacha);
                     }
                     
                 }
