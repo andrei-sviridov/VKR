@@ -48,10 +48,19 @@ namespace VKR
             using (VkrContext context = new VkrContext())
             {
                 var zadacha = new zadacha();
-
+                jurnal jurnal = new jurnal();
                 zadacha.id_sotrudnik = sotrudnikSozdatel.id_sotrudnik;
 
-                zadacha.id_ispolnitel_zadacha = (comboBox1.SelectedItem as sotrudnik).id_sotrudnik;
+                if (comboBox1.SelectedItem != null)
+                {
+                    zadacha.id_ispolnitel_zadacha = (comboBox1.SelectedItem as sotrudnik).id_sotrudnik;
+                    zadacha.status_zadacha = "Назначена";
+                }
+                else
+                {
+                    zadacha.status_zadacha = "Создана";
+                }
+                
 
                 zadacha.opisanie_zadacha = textBox1.Text;
 
@@ -65,16 +74,37 @@ namespace VKR
                 dateTime.AddSeconds(dateTimePicker2.Value.Second);
                 zadacha.srok_ispolnenia_zadacha = dateTime;
 
-                zadacha.status_zadacha = "Назначена";
+                
 
                 context.zadacha.Add(zadacha);
+                
                 context.SaveChanges();
 
-                var mes = new Message();
-                mes.id_sotrudnik = (comboBox1.SelectedItem as sotrudnik).id_sotrudnik;
-                mes.tekst_message = "Назначена новая задача";
-                context.Message.Add(mes);
-                context.SaveChanges();
+
+                if (zadacha.status_zadacha == "Назначена")
+                {
+                    var zadacha2 = new zadacha();
+                    zadacha2 = context.zadacha.FirstOrDefault(x => x.opisanie_zadacha == zadacha.opisanie_zadacha && x.id_ispolnitel_zadacha == zadacha.id_ispolnitel_zadacha && x.status_zadacha == zadacha.status_zadacha);
+                    //&& x.id_ispolnitel_zadacha == zadacha.id_ispolnitel_zadacha && x.status_zadacha == "Назначена" && x.srok_ispolnenia_zadacha == zadacha.srok_ispolnenia_zadacha
+                    jurnal.old_jurnal = "Создана";
+                    jurnal.new_jurnal = "Назначена";
+                    jurnal.data_jurnal = DateTime.Now;
+                    jurnal.id_zadacha = zadacha2.id_zadacha;
+                    jurnal.id_sotrudnik = sotrudnikSozdatel.id_sotrudnik;
+                    context.jurnal.Add(jurnal);
+                    context.SaveChanges();
+                }
+
+
+                if (comboBox1.SelectedItem != null)
+                {
+                    var mes = new Message();
+                    mes.id_sotrudnik = (comboBox1.SelectedItem as sotrudnik).id_sotrudnik;
+                    mes.tekst_message = "Назначена новая задача";
+                    context.Message.Add(mes);
+                    context.SaveChanges();
+                }
+
             }
 
             
@@ -104,6 +134,11 @@ namespace VKR
         }
 
         private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
         {
 
         }

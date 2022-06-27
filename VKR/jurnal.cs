@@ -21,10 +21,14 @@
 
         [StringLength(20)]
         public string new_jurnal { get; set; }
-/// <summary>
-/// ////////////////////////////////////////////////////////////////
-/// </summary>
+
+        public int? id_sotrudnik { get; set; }
+        /// <summary>
+        /// ////////////////////////////////////////////////////////////////
+        /// </summary>
         public virtual zadacha zadacha { get; set; }
+
+        public virtual sotrudnik sotrudnik { get; set; }
 
     }
 }

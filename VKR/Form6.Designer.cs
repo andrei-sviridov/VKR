@@ -44,6 +44,9 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.vernytZadachy = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -133,7 +136,7 @@
             this.comboBox1.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Начата",
+            "Назначена",
             "В разработке",
             "Проверяется",
             "Выполнена",
@@ -224,11 +227,36 @@
             this.vernytZadachy.UseVisualStyleBackColor = false;
             this.vernytZadachy.Click += new System.EventHandler(this.vernytZadachy_Click);
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold);
+            this.numericUpDown1.Location = new System.Drawing.Point(489, 353);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 40);
+            this.numericUpDown1.TabIndex = 23;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold);
+            this.label7.Location = new System.Drawing.Point(483, 315);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(121, 35);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "Важность";
+            // 
             // Form6
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(981, 565);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.vernytZadachy);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonOK);
@@ -248,6 +276,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form6";
             this.Text = "Изменение задачи";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -271,5 +300,7 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button vernytZadachy;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label7;
     }
 }

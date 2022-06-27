@@ -75,6 +75,7 @@ namespace VKR
         void activ_Target()
         {
             textBox2.Clear();
+            textBox1.Clear();
             int countZadach = 0;
 
             using (VkrContext context = new VkrContext())
@@ -88,7 +89,7 @@ namespace VKR
 
 
             }
-                textBox2.Text = "Текущих задач: " + countZadach + ";";
+                textBox1.Text = "Текущих задач: " + countZadach + ";";
             using (VkrContext context = new VkrContext())
             {
                 messages = context.Message.ToList();

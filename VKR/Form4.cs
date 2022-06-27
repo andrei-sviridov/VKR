@@ -33,15 +33,15 @@ namespace VKR
 
             dataGridView1.ColumnCount = 5;
             dataGridView1.Columns[0].HeaderText = "Id";
-            dataGridView1.Columns[1].HeaderText = "Описание";
-            dataGridView1.Columns[2].HeaderText = "Дата завершения";
-            dataGridView1.Columns[3].HeaderText = "Статус";
-            dataGridView1.Columns[4].HeaderText = "Создатель";
+            dataGridView1.Columns[1].HeaderText = "Описание задачи";
+            dataGridView1.Columns[2].HeaderText = "Дата завершения задачи";
+            dataGridView1.Columns[3].HeaderText = "Статус задачи";
+            dataGridView1.Columns[4].HeaderText = "Создатель задачи";
             dataGridView1.Columns[0].Width = 40;
             
             DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
             this.dataGridView1.Columns.Add(buttonColumn);
-            buttonColumn.HeaderText = "Изменить";
+            buttonColumn.HeaderText = "Изменить задачу";
             buttonColumn.Text = "Изменить"; ////????????????????????????
 
             dataGridView1_RowsAdded(null, null);
@@ -88,7 +88,7 @@ namespace VKR
                 if (e.ColumnIndex == 5)
                 {
                     EtaZadacha = context.zadacha.FirstOrDefault(x=> x.id_zadacha == rowclick);
-                    var myForm = new Form6(1, EtaZadacha);
+                    var myForm = new Form6(1, EtaZadacha, sotrudnikSozdatel, this);
                     myForm.Show();
                 } 
             }
@@ -99,7 +99,7 @@ namespace VKR
             refresh();
         }
 
-        private void refresh()
+        public void refresh()
         {
             dataGridView1.Rows.Clear();
             using (VkrContext context = new VkrContext())
@@ -107,9 +107,24 @@ namespace VKR
 
                 Zadachi = context.zadacha.Where(x => x.id_ispolnitel_zadacha == sotrudnikSozdatel.id_sotrudnik).Include(x => x.sotrudnik).ToList();
 
+                int i = -1;
+                var ToDayTime = DateTime.Now;
                 foreach (var zadacha in Zadachi)
                 {
                     dataGridView1.Rows.Add(zadacha.id_zadacha, zadacha.opisanie_zadacha, zadacha.srok_ispolnenia_zadacha, zadacha.status_zadacha, zadacha.sotrudnik.fio_sotrudnik);
+                    i = i + 1;
+                    if (zadacha.status_zadacha != "Выполнена" && zadacha.srok_ispolnenia_zadacha < ToDayTime)
+                    {
+                        dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                    }
+                    var ZadachaJurnal = context.jurnal.Where(x => x.id_zadacha == zadacha.id_zadacha);
+                    foreach (var itemZJ in ZadachaJurnal)
+                    {
+                        if (itemZJ.new_jurnal == "Выполнена" && itemZJ.data_jurnal >= zadacha.srok_ispolnenia_zadacha)
+                        {
+                            dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.MediumVioletRed;
+                        }
+                    }
                 }
 
             }

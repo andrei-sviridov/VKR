@@ -172,15 +172,12 @@ namespace VKR
         //    }
         //}
 
-        void DataGredClearRows()///////////////////////////////////////// Проверить
+        void DataGredClearRows()
         {
-            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+            int KolRow = dataGridView2.Rows.Count;
+            for (int i = 0; i < KolRow; i++)
             {
-                //if (dataGridView2.Rows[i] != null)
-                //{
-                    dataGridView2.Rows.Remove(dataGridView2.Rows[i]);
-               
-                //}
+                dataGridView2.Rows.Remove(dataGridView2.Rows[0]);
                 
             }
         }
@@ -242,10 +239,37 @@ namespace VKR
                 //{
                 //    dataGridView2.Rows.Add(item.Counter, item.Element.fio_sotrudnik);
                 //}
+                Dictionary<sotrudnik, int> SotrSortByKolZadach = new Dictionary<sotrudnik, int>();
 
                 foreach (var item in NeedSotrudniks)
                 {
-                    dataGridView2.Rows.Add(K.Count, item.fio_sotrudnik);
+                    List<zadacha> zadachas = context.zadacha.Where(x => x.id_ispolnitel_zadacha == item.id_sotrudnik && x.status_zadacha != "Выполнена").ToList();
+
+                    //var ZadachSotr = zadachas.GroupBy(x => x.id_ispolnitel_zadacha).Select(y => new { Element = y.Key, Counter = y.Count() }).ToList();
+
+                    int KolZadachSotr = 0;
+                    foreach (var itemZadach in zadachas)
+                    {
+                        if (itemZadach.vaznost_zadacha != 0)
+                        {
+                            KolZadachSotr += (int)itemZadach.vaznost_zadacha + 1;
+                        }
+                        else
+                        {
+                            KolZadachSotr += 1;
+                        }
+                    }
+
+                    //int KolZadachSotr = zadachas.Count();
+
+                    SotrSortByKolZadach.Add(item, KolZadachSotr);
+                }
+
+                SotrSortByKolZadach = SotrSortByKolZadach.OrderBy(x => x.Value).ToDictionary(x => x.Key, x=> x.Value);
+
+                foreach (var item in SotrSortByKolZadach)
+                {
+                    dataGridView2.Rows.Add(K.Count, item.Key.fio_sotrudnik);
                 }
             }
         }

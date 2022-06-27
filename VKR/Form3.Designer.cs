@@ -110,9 +110,10 @@
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(12, 256);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(155, 35);
+            this.label4.Size = new System.Drawing.Size(173, 35);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Коментарии";
+            this.label4.Text = "Комментарии";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // textBox2
             // 

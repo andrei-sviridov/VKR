@@ -85,7 +85,7 @@ namespace VKR
             // Column3
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.HeaderText = "Руководитель";
+            this.Column3.HeaderText = "Руководитель сотрудника";
             this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
             // 
@@ -166,7 +166,7 @@ namespace VKR
             this.OtchotButton.Name = "OtchotButton";
             this.OtchotButton.Size = new System.Drawing.Size(300, 46);
             this.OtchotButton.TabIndex = 2;
-            this.OtchotButton.Text = "Сгенерировать";
+            this.OtchotButton.Text = "Сформировать";
             this.OtchotButton.UseVisualStyleBackColor = false;
             this.OtchotButton.Click += new System.EventHandler(this.OtchotButton_Click);
             // 
@@ -228,9 +228,6 @@ namespace VKR
         #endregion
 
         private System.Windows.Forms.DataGridView SotrudnikiDataGridView;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridView OtchotDataGridView;
         private System.Windows.Forms.Button OtchotButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
@@ -243,5 +240,8 @@ namespace VKR
         private System.Windows.Forms.Button PDFButton;
         private System.Windows.Forms.Button ExcelButton;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }

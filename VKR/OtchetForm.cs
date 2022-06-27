@@ -70,6 +70,8 @@ namespace VKR
 
         private void OtchotButton_Click(object sender, EventArgs e)
         {
+            sotrudniksForOtchet.Clear();
+            ClearDataGred();
             using (VkrContext context = new VkrContext())
             {
                 for (int i = 0; i < SotrudnikiDataGridView.Rows.Count; i++)
@@ -86,11 +88,53 @@ namespace VKR
                     zadachas.AddRange(context.zadacha.Where(x => x.id_ispolnitel_zadacha == SFO.id_sotrudnik));
 
                     int KolZadachas = zadachas.Count();
-                    int KolNeGotovihZadachas = context.zadacha.Where(x => x.id_ispolnitel_zadacha == SFO.id_sotrudnik && x.status_zadacha != "Завершена").Count();
-                    int KolGotovihZadachas = context.zadacha.Where(x => x.id_ispolnitel_zadacha == SFO.id_sotrudnik && x.status_zadacha == "Завершена").Count();
-                    int KolVozvrashZadachas = context.zadacha.Where(x => x.id_ispolnitel_zadacha == SFO.id_sotrudnik && x.status_zadacha == "Возвращена").Count();
+                    int KolNeGotovihZadachas = context.zadacha.Where(x => x.id_ispolnitel_zadacha == SFO.id_sotrudnik && x.status_zadacha != "Выполнена").Count();
+                    int KolGotovihZadachas = context.zadacha.Where(x => x.id_ispolnitel_zadacha == SFO.id_sotrudnik && x.status_zadacha == "Выполнена").Count();
+                    int KolVozvrashZadachas = 0; //= context.zadacha.Where(x => x.id_ispolnitel_zadacha == SFO.id_sotrudnik && x.status_zadacha == "Возвращена").Count();
+                    List<jurnal> jurnal = new List<jurnal>();
+                    jurnal = context.jurnal.Where( x=> x.id_sotrudnik == SFO.id_sotrudnik).ToList();
+                    foreach (var item in jurnal)
+                    {
+                        if (item.new_jurnal == "Возвращена")
+                        {
+                            KolVozvrashZadachas += 1;
+                        }
+                    }
+                    
+                    var ToDayTime = DateTime.Now;
+                    int KolVovrema = 0;
 
-                    OtchotDataGridView.Rows.Add(SFO.fio_sotrudnik, KolZadachas, KolGotovihZadachas, KolNeGotovihZadachas, KolVozvrashZadachas);
+                    int KolNeVovrema = 0;
+
+                    foreach (var itemZ in zadachas)
+                    {
+                        int ZadachaId = itemZ.id_zadacha;
+                        var ZadachaJurnal = context.jurnal.Where(x => x.id_zadacha == ZadachaId);
+                        foreach (var itemZJ in ZadachaJurnal)
+                        {
+                            if (itemZJ.new_jurnal == "Выполнена" && itemZJ.data_jurnal <= itemZ.srok_ispolnenia_zadacha)
+                            {
+                                KolVovrema += 1;
+                            }
+                            else if(itemZJ.new_jurnal == "Выполнена" && itemZJ.data_jurnal >= itemZ.srok_ispolnenia_zadacha)
+                            {
+                                KolNeVovrema += 1;
+                            }
+                        }
+                    }
+
+                    
+                    foreach (var item in zadachas)
+                    {
+                        if (item.status_zadacha != "Выполнена" && item.srok_ispolnenia_zadacha < ToDayTime)
+                        {
+                            KolNeVovrema += 1;
+                        }
+                    }
+
+
+                    //int KolNeVovrema = context.zadacha.Where(x => x.id_ispolnitel_zadacha == SFO.id_sotrudnik && x.status_zadacha == "Возвращена").Count();
+                    OtchotDataGridView.Rows.Add(SFO.fio_sotrudnik, KolZadachas, KolGotovihZadachas, KolNeGotovihZadachas, KolVozvrashZadachas, KolVovrema, KolNeVovrema);
                     zadachas.Clear();
                 }
             }
@@ -196,6 +240,16 @@ namespace VKR
         {
             Parent_Form.Show();
             this.Close();
+        }
+
+        public void ClearDataGred()
+        {
+            int KolRows = OtchotDataGridView.Rows.Count;
+            for (int i = 0; i < KolRows; i++)
+            {
+                OtchotDataGridView.Rows.Remove(OtchotDataGridView.Rows[0]);
+            }
+
         }
     }
 }
